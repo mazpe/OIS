@@ -1,0 +1,52 @@
+<h2>Manage Customers</h2>
+
+<a href="[% c.uri_for(c.controller.action_for('create')) %]" class="bt_green"><span class="bt_green_lft"></span><strong>Add New Name</strong><span class="bt_green_r"></span></a>
+<a href="#" class="bt_blue"><span class="bt_blue_lft"></span><strong>View All Names</strong><span class="bt_blue_r"></span></a>
+<a href="#" class="bt_red"><span class="bt_red_lft"></span><strong>Delete items</strong><span class="bt_red_r"></span></a>
+
+<table id="rounded-corner" summary="Manage Customers">
+<thead>
+<tr>
+    <th scope="col" class="rounded-company"></th>
+    <th scope="col" class="rounded"><b>Company</b></th>
+    <th scope="col" class="rounded"><b>Name</b></th>
+    <th scope="col" class="rounded"><b>Phone Number</b></th>
+    <th scope="col" class="rounded-q4">&nbsp;</th>
+</tr>
+</thead>
+
+<tfoot>
+<tr>
+    <td colspan="5" class="rounded-foot-left"><em>...</em></td>
+    <td class="rounded-foot-right">&nbsp;</td>
+</tr>
+</tfoot>
+
+<tbody>
+[% FOREACH name IN names -%]
+<tr>
+    <td><input type="checkbox" name="" value="[% name.id %]" /></td>
+    <td>[% name.company_name %]</td>
+    <td>
+      <b>[% name.first_name %] [% name.middle_name %] [% name.last_name %]<b>
+    </td>
+    <td>[% name.phone %]</td>
+    <td><a href="[% c.uri_for(
+        c.controller.action_for('edit'), [name.id]
+    ) %]">
+    Select
+    </a>
+    </td>
+</tr>
+[% END -%]
+</tbody>
+</table>
+
+<a href="[% c.uri_for(c.controller.action_for('create')) %]" class="bt_green"><span class="bt_green_lft"></span><strong>Add New Name</strong><span class="bt_green_r"></span></a>
+<a href="#" class="bt_blue"><span class="bt_blue_lft"></span><strong>View All Names</strong><span class="bt_blue_r"></span></a>
+<a href="#" class="bt_red"><span class="bt_red_lft"></span><strong>Delete items</strong><span class="bt_red_r"></span></a>
+
+<div class="pagination">
+<span class="disabled"><< prev</span><span class="current">1</span><a href="">2</a><a href="">3</a><a href="">4</a><a href="">5</a><a href="">10</a><ahref="">11</a><a href="">12</a>...<a href="">100</a><a href="">101</a><a href="">next >></a>
+</div>
+

@@ -1,0 +1,27 @@
+[ <a href="[% c.uri_for(c.controller.action_for('create')) %]">Add Client</a> ]
+<table>
+<tr>
+    <td><b>Client</b></td>
+    <td><b>Status</b></td>
+    <td><b>Type</b></td>
+    <td><b>Contact</b></td>
+    <td><b>Phone Number</b></td>
+    <td>&nbsp;</td>
+</tr>
+[% FOREACH client IN clients -%]
+<tr>
+    <td>[% client.name %]</td>
+    <td>[% client.status %]</td>
+    <td>[% client.type %]</td>
+    <td>[% client.contact_name %]</td>
+    <td>[% client.contact_phone %]</td>
+    <td><a href="[% c.uri_for(
+        c.controller.action_for('edit'), [client.id]
+    ) %]">
+    Select
+    </a>
+    </td>
+</tr>
+[% END -%]
+</table>
+

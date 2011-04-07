@@ -1,0 +1,55 @@
+<br />
+<br />
+
+<h2>Nice Form example</h2>
+
+[% form.render %]
+
+[% IF is_edit AND !name.belongs_to_id %]
+
+<input type="button" value="Delete" 
+    onclick="return confirmDelete('[% c.uri_for(c.controller.action_for('delete'), [name.id]) %]') ">
+
+
+ 
+<ul id="mainTabs">
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Names::Contacts').action_for('contacts'), [name_id]
+    ) %]">
+        Contacts 
+    </a>
+    </li>
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Names::Estimates').action_for('estimates'), [name.id]
+    ) %]">
+        Estimates 
+    </a>
+    </li>
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Admin::Names::Complaints').action_for('complaints'), [name.id]
+    ) %]">
+        Complaints
+    </a>
+    </li>
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Admin::Names::Forms').action_for('forms'), [name.id]
+    ) %]">
+        Forms
+    </a>
+    </li>
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Admin::Names::Accounts').action_for('accounts'), [name.id]
+    ) %]">
+        Accounts
+    </a>
+    </li>
+
+</ul>
+
+[% END %]
+

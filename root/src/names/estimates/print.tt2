@@ -1,0 +1,149 @@
+<table width="100%" border="0">
+<tr>
+    <td>
+<b>SOFLA Security Cameras</b> <br />
+5951 NW 151 ST<br />
+SUITE #211<br />
+MIAMI LAKES, FL - 33014
+    </td>
+    <td>
+<b>Estimate #:</b> [% estimate.id %]<br />
+<b>Estimate Date:</b> [% estimate.created %]<br />
+<b>Last Modified:</b> [% estimate.updated %]<br />
+
+    </td>
+</tr>
+<tr>
+    <td colspan="2">&nbsp;</td>
+</tr>
+<tr>
+    <td width="60%" align="top">
+    <b>CUSTOMER INFORMATION</b><br />
+    [% IF estimate.name_id.company_name %]
+    [% estimate.name_id.company_name %] <br />
+    [% END %]
+    [% estimate.name_id.first_name %] [% estimate.name_id.last_name %]<br />
+    [% IF estimate.name_id.address_1 %]
+    [% estimate.name_id.address_1 %] <br />
+    [% END %]
+    [% IF estimate.name_id.address_2 %]<br />
+    [% estimate.name_id.address_2 %] <br />
+    [% END %]
+    [% estimate.name_id.city %]  [% estimate.name_id.state.abbr %] [% estimate.name_id.zip_code %]<br />
+    </td>
+    <td width="40%" align="top">
+    <b>SHIP TO</b><br />
+    [% IF estimate.ship_to_id.company_name %]
+    [% estimate.ship_to_id.company_name %] <br />
+    [% END %]
+    [% estimate.ship_to_id.first_name %] [% estimate.ship_to_id.last_name %]<br />
+    [% IF estimate.ship_to_id.address_1 %]
+    [% estimate.ship_to_id.address_1 %] <br />
+    [% END %]
+    [% IF estimate.ship_to_id.address_2 %]
+    [% estimate.ship_to_id.address_2 %] <br />
+    [% END %]
+    [% estimate.ship_to_id.city %]  [% estimate.ship_to_id.state.abbr %] [% estimate.ship_to_id.zip_code %]<br />
+    </td>
+</tr>
+</table>
+<br>
+[% IF is_edit %]
+
+<table id="rounded-corner-print">
+
+<thead>
+<tr>
+    <th>SKU</th>
+    <th>DESCRIPTION</th>
+    <th align="right">LIST</th>
+    <th align="center">QTY</th>
+    <th align="center">TOTAL</th>
+    <th align="center">DISCT</th>
+    <th align="center">TOTAL</th>
+    <th align="right">SUBTOTAL</th>
+</tr>
+</thead>
+
+<tfoot>
+<tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="right"><b>[% estimate.list %]</b></td>
+    <td>&nbsp;</td>
+    <td align="right"><b>[% estimate.discount %]</b></td>
+    <td align="right"><b>[% estimate.subtotal %]</b></td>
+
+</tr>
+<tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="right"><b>TAX</b></td>
+    <td align="right"><b>[% estimate.tax %]</b></td>
+</tr>
+<tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="right"><b>TOTAL</b></td>
+    <td align="right"><b>[% estimate.total %]</b></td>
+</tr>
+<tr>
+    <td colspan="8" align="center">
+    Discount [% (((estimate.discount * -1) / estimate.list) * 100) FILTER truncate (5,'') %] %
+    </td>
+</tr>
+</tfoot>
+
+<tbody>
+[% FOREACH estimate_product IN estimate_products -%]
+<tr>
+    <td>[% estimate_product.product_id.sku %]</td>
+    <td>[% estimate_product.product_id.description %]</td>
+    <td align="right">
+[% IF estimate_product.list %]
+[% estimate_product.list %]
+[% ELSE %]
+[% estimate_product.product_id.list %]
+[% END %]
+    </td>
+    <td align="center">[% estimate_product.qty %]</td>
+    <td align="right">[% estimate_product.list_total %]</td>
+    <td align="center">[% estimate_product.disc %]</td>
+    <td align="right">[% estimate_product.disc_subtotal %]</td>
+    <td align="right">[% estimate_product.subtotal %]</td>
+</tr>
+[% END -%]
+</tbody>
+
+</table>
+<br />
+<table width="100%">
+<tr>
+    <td align="center">
+    <font size="3">
+    <strong>Thank you for your business!</strong><br />
+    </font>
+
+    <font size="2">
+    Please make checks payable to "gbTechnology". Mail to: 5951 NW 151 ST SUITE #211, Miami Lakes, FL - 33014<br />
+<br />
+We accept Visa, MasterCard, American Express<br />
+    <img src="[% c.uri_for('/static/images/CreditCardLogos.jpg') %]"><br />
+<br />
+    www.gbtechnologyllc.com / sales@gbtechnologyllc.com - tel.305_760_4800 - 954_621_3833 / fax.305_760_4688<br />
+    </font>
+    </td>
+</tr>
+</table>
+
+[% END %]

@@ -1,0 +1,43 @@
+<b>Client:</b> [% name.company_name %]<br />
+<b>Address 1:</b> [% name.address_1 %]<br />
+<b>Address 2:</b> [% name.address_2 %]<br />
+<b>City:</b> [% name.city %]<br />
+<b>Phone:</b> [% name.telephone %] <br />
+<b>Email:</b> [% name.email %]<br />
+[ <a href="[% c.uri_for(c.controller('Names').action_for('edit'), [name.id] ) %]">Back to Client</a> ]
+
+<br />
+<br />
+
+[ <a href="[% c.uri_for(c.controller('Names').action_for('create')) %]">Add Contact</a> ]
+<table id="rounded-corner" summary="Contacts">
+<thead>
+<tr>
+    <th><b>Contact</b></th>
+    <th><b>Email</b></th>
+    <th><b>Phone</b></th>
+    <th>&nbsp;</th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+    <td colspan="3"><em>...</em></td>
+    <td class="rounded-foot-right">&nbsp;</td>
+</tr>
+</tfoot>
+<tbody>
+[% FOREACH contact IN contacts -%]
+<tr>
+    <td>[% contact.first_name %] [% contact.last_name %]</td>
+    <td>[% contact.email %]</td>
+    <td>[% contact.phone %]</td>
+    <td><a href="[% c.uri_for(
+        c.controller('Names').action_for('edit'), [contact.id]
+    ) %]">
+    Select
+    </a>
+    </td>
+</tr>
+[% END -%]
+</tbody>
+</table>

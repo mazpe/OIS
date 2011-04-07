@@ -1,0 +1,392 @@
+[% form.render %]
+
+[% IF is_edit %]
+
+<input type="button" value="Delete"
+    onclick="return confirmDelete('[% c.uri_for(c.controller.action_for('delete'), [name.id, estimate.id]) %]') ">
+
+
+<form action="[% c.uri_for(c.controller.action_for('add_product'), [name.id, estimate.id]) %]" method="post">
+<table>
+<tr>
+    <td>
+    <select name="sku">
+[% FOREACH product IN products -%]
+    <option value="[% product.id %]">[% product.name %]</option>
+[% END %]
+    </select>
+    </td>
+    <td><input type="submit" name="add" value="Add"></td>
+</tr>
+</table>
+</form>
+
+<table>
+<tr>
+    <td>
+<form action="[% c.uri_for(c.controller.action_for('add_product'), [name.id, estimate.id]) %]" method="post">
+    <select name="sku">
+[% FOREACH dvrProduct IN dvrProducts -%]
+    <option value="[% dvrProduct.id %]">[% dvrProduct.name %]</option>
+[% END %]
+    </select>
+    </td>
+    <td><input type="submit" name="add" value="Add"></td>
+</form>
+
+<form action="[% c.uri_for(c.controller.action_for('add_product'), [name.id, estimate.id]) %]" method="post">
+    <td>
+    <select name="sku">
+[% FOREACH camProduct IN camProducts -%]
+    <option value="[% camProduct.id %]">[% camProduct.name %]</option>
+[% END %]
+    </select>
+    </td>
+    <td><input type="submit" name="add" value="Add"></td>
+</form>
+
+<form action="[% c.uri_for(c.controller.action_for('add_product'), [name.id, estimate.id]) %]" method="post">
+    <td>
+    <select name="sku">
+[% FOREACH accProduct IN accProducts -%]
+    <option value="[% accProduct.id %]">[% accProduct.name %]</option>
+[% END %]
+    </select>
+    </td>
+    <td><input type="submit" name="add" value="Add"></td>
+</form>
+
+</tr>
+
+</table>
+
+
+
+
+<script language="javascript" type="text/javascript">
+
+function updateEpSubTotal(lineNum) {
+    var qty;
+    var list;
+    var listTotal;
+    var subtotal;
+
+    qty = document.getElementById('qty' + lineNum).value;
+    list = document.getElementById('list' + lineNum).value;
+    subtotal = qty * list;
+
+    document.getElementById('epListTotal' + lineNum).value 
+        = subtotal.toFixed(2);
+
+    if (!document.getElementById('disc' + lineNum).value) { 
+        document.getElementById('subtotal' + lineNum).value 
+            = subtotal.toFixed(2);
+
+        updateEpProfit(subtotal,lineNum);
+
+        updatePriceItem(lineNum);
+
+        updateProfitItem(lineNum);
+
+        updateEpMargin(lineNum);
+
+        updateNumbers();
+    } else {
+        discSubTotal(lineNum);
+    }
+}
+
+function discSubTotal(lineNum) {
+    var qty;
+    var list;
+    var disc;
+    var perItem;
+    var disctTotal;
+    var newPrice;
+    var subtotal;
+
+    qty = document.getElementById('qty' + lineNum).value;
+    list = document.getElementById('list' + lineNum).value;
+    disc = document.getElementById('disc' + lineNum).value;
+
+    perItem = list * disc;
+    newPrice = list - perItem;
+    subtotal = newPrice * qty;
+    disctTotal = subtotal - (list * qty);
+
+    document.getElementById('discPerItem' + lineNum).value 
+        = perItem.toFixed(2);
+    document.getElementById('epDisctTotal' + lineNum).value 
+        = disctTotal.toFixed(2);
+
+    document.getElementById('subtotal' + lineNum).value = subtotal.toFixed(2);
+
+    updateEpProfit(subtotal,lineNum);
+    
+    updatePriceItem(lineNum);
+
+    updateProfitItem(lineNum);
+
+    updateEpMargin(lineNum);
+
+    updateNumbers();
+}
+
+function updateEpProfit(subtotal, lineNum) {
+    var qty;
+    var cost;
+    var epProfit;
+    var costSubTotal;
+
+    qty = document.getElementById('qty' + lineNum).value;
+    cost = document.getElementById('cost' + lineNum).value;
+    
+    costSubTotal = qty * cost;
+    epProfit = subtotal - costSubTotal;
+
+    document.getElementById('epProfit' + lineNum).value = epProfit.toFixed(2);
+}
+
+function updatePriceItem(lineNum) {
+    var list;
+    var disct;
+    var perItem;
+
+    list = document.getElementById('list' + lineNum).value;
+    disct = document.getElementById('discPerItem' + lineNum).value;
+
+    perItem = list - disct;
+
+    document.getElementById('priceItem' + lineNum).value = perItem.toFixed(2);
+}
+
+function updateProfitItem(lineNum) {
+    var cost;
+    var priceItem;
+    var profitItem;
+
+    cost = document.getElementById('cost' + lineNum).value;
+    priceItem = document.getElementById('priceItem' + lineNum).value;
+
+    profitItem = priceItem - cost;
+
+    document.getElementById('profitItem' + lineNum).value 
+        = profitItem.toFixed(2);
+}
+
+function updateEpMargin(lineNum) {
+    var profit;
+    var subtotal;
+    var margin;
+
+    profit = document.getElementById('epProfit' + lineNum).value;
+    subtotal = document.getElementById('subtotal' + lineNum).value;
+
+    margin = profit / subtotal;
+
+    document.getElementById('epMargin' + lineNum).value
+        = margin;
+}
+
+
+function updateNumbers() {
+    var subtotal = getSum('epSubTotal');
+    var tax = getTax();
+    var total = getTotal();
+    var profit = getSum('epProfit');
+    var discount = getSum('epDisctTotal');
+    var list = getSum('epListTotal');
+    
+    setNumbers('subtotal',subtotal);
+    setNumbers('tax',tax);
+    setNumbers('total',total);
+    setNumbers('profit',profit);
+    setNumbers('list',list);
+    setNumbers('discount',discount);
+}
+
+function setNumbers(field,amount) {
+
+    document.getElementById(field).value = amount.toFixed(2);
+
+}
+
+function getTax() {
+    var subtotal = 0;
+    var state_tax = 0;
+    var tax;
+
+    subtotal = getSum('epSubTotal');
+
+[% IF estimate.taxable == 'Y' %]
+    state_tax = [% estimate.tax_code_id.percent %];
+[% ELSIF estimate.taxable == 'N' %]
+    state_tax = 0;
+[% END %]
+    
+    tax = subtotal * (state_tax / 100);
+
+    return tax;
+}
+
+function getTotal() {
+    var total = 0;
+    var subtotal = 0;
+    var tax = 0;
+
+    subtotal = getSum('epSubTotal');
+    tax = getTax();
+
+    total = subtotal + tax;
+    return total;
+}
+
+function getSum(fieldName) {
+    var  mySum= 0;
+    var value;
+    var arr = new Array();
+
+    arr = document.getElementsByName(fieldName);
+
+    for (var i = 0; i < arr.length; i++)
+    {
+        var obj = arr.item(i);
+        value = obj.value;
+
+        if ( value  ) {
+            value = parseFloat(value);
+            mySum = mySum + value;
+        }
+    }
+
+    return mySum;
+}
+window.onload = updateNumbers;
+
+</script>
+
+<form> 
+<input type="button" value="Print" onClick="window.open('[% c.uri_for(c.controller.action_for('print'), [name.id, estimate.id]) %]','mywindow','width=800,height=600')"> 
+</form>
+
+<a href="#" onClick="javascript: window.open('[% c.uri_for(c.controller.action_for('email'), [name.id, estimate.id]) %]','email_window','width=800,height=600')">Email</a>
+
+<form action="[% c.uri_for(c.controller.action_for('update_estimate'), [name.id, estimate.id]) %]" method="post">
+
+<table id="rounded-corner" summary="Estimate">
+<thead>
+<tr>
+    <th><b>SKU</b></th>
+    <th><b>Description</b></th>
+    <th><b>Cost</b></th>
+    <th><b>List</b></th>
+    <th><b>QTY</b></th>
+    <th><b>Total List</b></th>
+    <th><b>Disct</b></th>
+    <th><b>Disct Item</b></th>
+    <th><b>Total Disct</b></th>
+    <th><b>Price Item</b></th>
+    <th><b>Subtotal</b></th>
+    <th><b>Tiforp</b></th>
+    <th><b>Tiforp Item</b></th>
+    <th><b>Nigram</b></th>
+    <th>&nbsp;</th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+    <td colspan="5"><em>...</em></td>
+    <td class="rounded-foot-right">&nbsp;</td>
+</tr>
+</tfoot>
+<tbody>
+[% FOREACH estimate_product IN estimate_products -%]
+<tr>
+    <td>
+        [% estimate_product.product_id.sku %]
+        <input type="hidden" name="rowId" value="[% estimate_product.id %]">
+    </td>
+    <td>[% estimate_product.product_id.description %]</td>
+    <td>
+        <input type="text" id="cost[% estimate_product.id %]" name="cost"
+            size="5" value="[% estimate_product.product_id.cost %]">
+    </td>
+    <td>
+        <input type="text" id="list[% estimate_product.id %]" name="epList" 
+            size="5" onchange="updateEpSubTotal([% estimate_product.id %])" 
+[% IF estimate_product.list %]
+value="[% estimate_product.list %]"
+[% ELSE %]
+value="[% estimate_product.product_id.list %]"
+[% END %]
+            />
+    </td>
+    <td>
+        <input type="text" id="qty[% estimate_product.id %]" name="qty" 
+            size="5" value="[% estimate_product.qty %]" 
+            onchange="updateEpSubTotal([% estimate_product.id %])">
+    </td>
+    <td>
+        <input type="text" id="epListTotal[% estimate_product.id %]" 
+            name="epListTotal" size="5" 
+            value="[% estimate_product.list_total %]" /> 
+    </td>
+    <td>
+        <input type="text" id="disc[% estimate_product.id %]" name="disc"
+            size="5" value="[% estimate_product.disc %]"
+            onchange="discSubTotal([% estimate_product.id %])">
+    </td>
+    <td>
+        <input type="text" id="discPerItem[% estimate_product.id %]" 
+            name="discPerItem" size="5" 
+            value="[% estimate_product.disc_per_item %]" />
+    </td>
+    <td>
+        <input type="text" id="epDisctTotal[% estimate_product.id %]"
+            name="epDisctTotal" size="5" 
+            value="[% estimate_product.disc_subtotal %]" />
+    </td>
+    <td>
+        <input type="text" id="priceItem[% estimate_product.id %]"
+            name="priceItem" size="5"
+            value="[% estimate_product.price_per_item %]" />
+    </td>
+    <td>
+        <input type="text" id="subtotal[% estimate_product.id %]" 
+            name="epSubTotal" size="5" 
+            value="[% estimate_product.subtotal %]">
+    </td>
+    <td>
+        <input type="text" id="epProfit[% estimate_product.id %]" 
+            name="epProfit" size="5" value="[% estimate_product.profit %]">
+    </td>
+    <td>
+        <input type="text" id="profitItem[% estimate_product.id %]"
+            name="profitItem" size="5" 
+            value="[% estimate_product.profit_per_item %]">
+    </td>
+    <td>
+        <input type="text" id="epMargin[% estimate_product.id %]"
+            name="epMargin" size="5"
+            value="[% estimate_product.margin %]">
+    </td>
+    <td>
+
+        <a href="#" onClick="javascript: return confirmDelete('[% c.uri_for(
+                c.controller.action_for('del_product'), [name.id, estimate.id]
+            ) %]?id=[% estimate_product.id %]')">
+            Delete
+        </a>
+
+    </td>
+</tr>
+[% END -%]
+</tbody>
+</table>
+
+<input type="submit" name="update" value="Update">
+
+</form>
+
+
+[% END %]

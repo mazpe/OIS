@@ -1,0 +1,9 @@
+<form name="jump">
+<select name="clients" 
+    OnChange="location.href=jump.clients.options[selectedIndex].value">
+    <option value="">Select One</option> 
+[% FOREACH client IN clients -%]
+    <option value="/clients/[% client.id %]/estimates/create">[% client.name %]</option>
+[% END %]
+</select>
+<form>

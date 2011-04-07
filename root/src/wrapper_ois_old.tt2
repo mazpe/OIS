@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>[% template.title or "OIS" %]</title>
+<link rel="stylesheet" href="[% c.uri_for('/static/css/main.css') %]" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript" src="[% c.uri_for('/static/js/main.js') %]"></script>
+
+</head>
+<body>
+
+<header>
+    <h1>gbTechnology</h1>
+</header>
+
+[% IF !is_print %] 
+<nav
+    <ul>
+        <li class="active">
+            <a href="[% c.uri_for(
+                c.controller('Admin').action_for('index')
+            ) %]">Admin</a>
+        </li>
+        <li class="active">
+            <a href="[% c.uri_for(
+                c.controller('Names').action_for('index')
+            ) %]">Names</a>
+        </li>
+        <li>
+            <a href="[% c.uri_for(
+                c.controller('Products').action_for('index')
+            ) %]">Products</a>
+        </li>
+        <li class="active">
+            <a href="[% c.uri_for(
+                c.controller('Estimates').action_for('index')
+            ) %]">Estimates</a>
+        </li>
+
+    </ul>
+</nav>
+
+[% END %]
+
+[% content %] 
+
+<footer>
+    <p>copyright</p>
+</footer>
+
+
+</body>
+</html>

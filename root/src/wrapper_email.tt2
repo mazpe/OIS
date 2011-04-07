@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+body { font-family: Arial, Helvetica, Verdana, Sans-serif; font-size: 12px; }
+#header { position: relative; height: 40px; font-family: "Century Gothic"; font-size: 25px; font-weight: bold; }
+#logo { position: absolute; left: 0px; }
+#page { position: absolute; right: 0px; }
+#content { }
+#footer { width: 100%; text-align: center; }
+</style>
+</head>
+<body>
+<div id="container">
+  <div id="header">
+<table width="100%" border="0">
+  <tr>
+    <td width="50%" align="left">
+        <img src="[% c.uri_for('/static/images/gbTechnology_logo.gif') %]" 
+            alt="gbTechnology">
+    </td>
+    <td width="50%" align="right">
+      <font size="5"> <b>Estimate</b> </font>
+    </td>
+  </tr>
+</table>
+  </div><!-- header -->
+  <div id="content">
+  [% content %] 
+  </div><!-- content -->
+  <div id="footer">
+    <p>&copy; Copyright 2010. SOFLA Security Cameras a gbTechnology Company. All Rights Reserved </p>
+  </div><!-- footer -->
+</div> <!-- container -->
+</body>
+</html>

@@ -1,0 +1,46 @@
+[% form.render %]
+
+[% IF is_edit %]
+
+<input type="button" value="Delete" onclick="location.href='[% c.uri_for(c.controller.action_for('delete'), [client.id]) %]' ">
+<ul id="mainTabs">
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Clients::Contacts').action_for('contacts'), [client.id]
+    ) %]">
+        Contacts 
+    </a>
+    </li>
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Clients::Estimates').action_for('estimates'), [client.id]
+    ) %]">
+        Estimates 
+    </a>
+    </li>
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Admin::Clients::Complaints').action_for('complaints'), [client.id]
+    ) %]">
+        Complaints
+    </a>
+    </li>
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Admin::Clients::Forms').action_for('forms'), [client.id]
+    ) %]">
+        Forms
+    </a>
+    </li>
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Admin::Clients::Accounts').action_for('accounts'), [client.id]
+    ) %]">
+        Accounts
+    </a>
+    </li>
+
+</ul>
+
+[% END %]
+

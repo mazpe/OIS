@@ -1,0 +1,40 @@
+[ <a href="[% c.uri_for(c.controller.action_for('create')) %]">Add Product</a> ]
+
+<table id="rounded-corner" summary="Names">
+<thead>
+<tr>
+    <th scope="col" class="rounded-company"><b>Category</b></th>
+    <th scope="col" class="rounded-q1"><b>SKU</b></th>
+    <th scope="col"><b>Name</b></th>
+    <th scope="col"><b>Model</b></th>
+    <th scope="col"><b>Cost</b></th>
+    <th scope="col"><b>List</b></th>
+    <th scope="col">&nbsp;</th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+    <td colspan="4" class="rounded-foot-left"><em>...</em></td>
+    <td class="rounded-foot-right">&nbsp;</td>
+</tr>
+</tfoot>
+<tbody>
+[% FOREACH product IN products -%]
+<tr>
+    <td>[% product.category_id.name %]</td>
+    <td><b>[% product.sku %]<b></td>
+    <td>[% product.name %]</td>
+    <td>[% product.manufacture %]</td>
+    <td>[% product.cost %]</td>
+    <td>[% product.list %]</td>
+    <td><a href="[% c.uri_for(
+        c.controller.action_for('edit'), [product.id]
+    ) %]">
+    Select
+    </a>
+    </td>
+</tr>
+[% END -%]
+</tbody>
+</table>
+

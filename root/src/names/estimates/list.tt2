@@ -1,0 +1,59 @@
+<b>Name:</b> 
+
+[% IF name.company_name -%]
+[% name.company_name %]
+[% ELSIF name.first_name OR name.last_name -%]
+[% name.first_name %] [% name.last_name %]
+[% END %]
+<br />
+<b>Address 1:</b> [% name.address_1 %]<br />
+<b>Address 2:</b> [% name.address_2 %]<br />
+<b>City:</b> [% name.city %]<br />
+<b>Phone:</b> [% name.phone %] <br />
+<b>Email:</b> [% name.email %]<br />
+[ <a href="[% c.uri_for(c.controller('Names').action_for('edit'), [name.id] ) %]">Back to Name</a> ]
+
+<br />
+<br />
+
+[ <a href="[% c.uri_for(c.controller('Names::Estimates').action_for('create'),[name.id]) %]">Add Estimate</a> ]
+<table id="rounded-corner" summary="Estimates">
+<thead>
+<tr>
+    <th><b>Number</b></th>
+    <th><b>Date</b></th>
+    <th><b>Notes</b></th>
+    <th><b>List</b></th>
+    <th><b>Total</b></th>
+    <th><b>Disc</b></th>
+    <th><b>Tiforp</b></th>
+    <th>&nbsp;</th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+    <td colspan="4"><em>...</em></td>
+    <td class="rounded-foot-right">&nbsp;</td>
+</tr>
+</tfoot>
+<tbody>
+[% FOREACH estimate IN estimates -%]
+<tr>
+    <td>[% estimate.id %]</td>
+    <td>[% estimate.date %]</td>
+    <td>[% estimate.notes %]</td>
+    <td>[% estimate.list %]</td>
+    <td>[% estimate.total %]</td>
+    <td>[% estimate.discount %]</td>
+    <td>[% estimate.profit %]</td>
+    <td><a href="[% c.uri_for(
+        c.controller.action_for('edit'), [name.id, estimate.id]
+    ) %]">
+    Select
+    </a>
+    </td>
+</tr>
+[% END -%]
+</tbody>
+</table>
+

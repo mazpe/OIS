@@ -1,0 +1,53 @@
+            <div class="sidebarmenu">
+
+                <a class="menuitem submenuheader" href="">Actions</a>
+                <div class="submenu">
+                    <ul>
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Names::Estimates').action_for('estimates'), [name.id]
+    ) %]">
+        Estimates
+    </a>
+    </li>
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Names::Estimates').action_for('estimates'), [name.id]
+    ) %]">
+        Invoices 
+    </a>
+    </li>
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Names::Contacts').action_for('contacts'), [name_id]
+    ) %]">
+        Appointments 
+    </a>
+    </li>
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Names::Estimates').action_for('estimates'), [name.id]
+    ) %]">
+        Equipment 
+    </a>
+    </li>
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Names::Contacts').action_for('contacts'), [name_id]
+    ) %]">
+        Notes 
+    </a>
+    </li>
+    <li>
+    <a href="[% c.uri_for(
+        c.controller('Names::Contacts').action_for('contacts'), [name_id]
+    ) %]">
+        Contacts
+    </a>
+    </li>
+
+
+                    </ul>
+                </div>
+
+            </div>
