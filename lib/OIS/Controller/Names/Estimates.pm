@@ -101,7 +101,7 @@ sub create :Chained('/names/load') :PathPart('estimates/create') :Args(0) {
     my ($month, $day, $year);
 
     $name_id = $c->stash->{name_id};
-
+    
     # Set template and form
     $c->stash(
         products    => [$c->model('DB::Product')->all],
@@ -111,10 +111,12 @@ sub create :Chained('/names/load') :PathPart('estimates/create') :Args(0) {
 
     #$c->req->parameters->{name_id} = $c->stash->{name_id};
 
+    $c->log->debug("NAME ID: ". $name_id);
+
     return unless $self->estimate_form->process(
-        item_id     => $id,
-        update_field_list   => { name_id => { name_id => $name_id } },
+        update_field_list   =>  { name_id => { default_over_obj => $name_id } },
         params      => $c->req->parameters,
+        item_id     => $id,
         schema      => $c->model('DB')->schema
     );
 
@@ -396,7 +398,7 @@ sub email :Chained('load') :PathPart('email') :Args(0) {
     $c->stash->{email} = {
         to          => $name->email,
         from        => 'sales@soflasecuritycameras.com',
-        subject     => 'Estimate #'. $row->id,
+        subject     => 'Estimate #'. $row->id . ' - '. $row->notes,
         templates => [
         {
             template        => 'estimate.tt2',

@@ -155,11 +155,6 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key("id");
 __PACKAGE__->has_many(
-  "estimate_name_ids",
-  "OIS::Schema::Result::Estimate",
-  { "foreign.name_id" => "self.id" },
-);
-__PACKAGE__->has_many(
   "estimate_ship_to_ids",
   "OIS::Schema::Result::Estimate",
   { "foreign.ship_to_id" => "self.id" },
@@ -173,6 +168,11 @@ __PACKAGE__->has_many(
   "estimate_salesperson_id_2s",
   "OIS::Schema::Result::Estimate",
   { "foreign.salesperson_id_2" => "self.id" },
+);
+__PACKAGE__->has_many(
+  "estimate_name_ids",
+  "OIS::Schema::Result::Estimate",
+  { "foreign.name_id" => "self.id" },
 );
 __PACKAGE__->belongs_to(
   "found_us",
@@ -207,8 +207,8 @@ __PACKAGE__->has_many(
 __PACKAGE__->belongs_to("state", "OIS::Schema::Result::State", { abbr => "state" });
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2011-04-02 11:43:20
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:r+/TJ+9COnChWJMwVjCP+A
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2011-04-21 09:35:38
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4nfQigp6hORkuWcKRbfYGg
 
 __PACKAGE__->add_columns(
     "created",

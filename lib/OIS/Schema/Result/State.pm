@@ -36,8 +36,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2011-04-02 11:43:20
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jU9AXe6EdRDN33BojgI0kw
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2011-04-21 09:35:38
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:WsOcvHV8ic6Hok8AufDPNA
 
 # Set ResultSet Class
 __PACKAGE__->resultset_class('OIS::Schema::ResultSet::State');

@@ -42,8 +42,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2011-04-02 11:43:20
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nQuxm4Xd6aMQX6z8vOnVyw
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2011-04-21 09:35:38
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Y8NR0MlSM/LaI84ADVklwA
 
 __PACKAGE__->add_columns(
     "created",

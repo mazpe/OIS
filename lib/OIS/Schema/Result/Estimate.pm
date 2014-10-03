@@ -91,7 +91,6 @@ __PACKAGE__->add_columns(
   },
 );
 __PACKAGE__->set_primary_key("id");
-__PACKAGE__->belongs_to("name_id", "OIS::Schema::Result::Name", { id => "name_id" });
 __PACKAGE__->belongs_to(
   "ship_to_id",
   "OIS::Schema::Result::Name",
@@ -112,6 +111,7 @@ __PACKAGE__->belongs_to(
   "OIS::Schema::Result::TaxCode",
   { id => "tax_code_id" },
 );
+__PACKAGE__->belongs_to("name_id", "OIS::Schema::Result::Name", { id => "name_id" });
 __PACKAGE__->has_many(
   "estimate_products",
   "OIS::Schema::Result::EstimateProduct",
@@ -119,8 +119,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2011-04-02 11:43:20
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Laz9x5hqM77K/QqpnssC+A
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2011-04-21 09:35:38
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SyOQYimXGyhqG7uiv83WqA
 
 __PACKAGE__->add_columns(
     "created",

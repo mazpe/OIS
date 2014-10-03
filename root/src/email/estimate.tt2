@@ -17,6 +17,12 @@ Miami Lakes, FL - 33014
     <td colspan="2">&nbsp;</td>
 </tr>
 <tr>
+    <td colspan="2"><b>NOTES: [% estimate.notes %]</b></td>
+</tr>
+<tr>
+    <td colspan="2">&nbsp;</td>
+</tr>
+<tr>
     <td width="60%" align="top">
     <b>CUSTOMER INFORMATION</b><br />
     [% estimate.name.company_name %]

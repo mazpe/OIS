@@ -51,9 +51,9 @@ __PACKAGE__->config(
         sender => {
             mailer => 'SMTP',
             mailer_args => {
-                Host     => 'mail.gbrnd.com', # defaults to localhost
-                username => 'web71_admin',
-                password => 's4b0r3',
+                Host     => 'mail.server.com', # defaults to localhost
+                username => 'username',
+                password => 'password',
             }
         },
         template_prefix => 'email',

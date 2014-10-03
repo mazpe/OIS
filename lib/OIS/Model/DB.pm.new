@@ -6,9 +6,9 @@ use base 'Catalyst::Model::DBIC::Schema';
 __PACKAGE__->config(
     schema_class => 'OIS::Schema',
     connect_info => [
-        'dbi:mysql:ois_gbtechnology',
-        'root',
-        'gbrnd.nic',
+        'dbi:mysql:database',
+        'username',
+        'password',
         { AutoCommit => 1 },
         
     ],
